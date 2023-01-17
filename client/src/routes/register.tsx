@@ -45,7 +45,7 @@ export default function Register() {
             >
               OR
             </span>
-            <Button href="/login" className="min-w-[320px]">
+            <Button href="/login" className="min-w-[320px] text-sm">
               Login with Existing Account
             </Button>
           </div>
