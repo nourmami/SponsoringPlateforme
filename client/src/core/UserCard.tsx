@@ -8,11 +8,11 @@ export default function UserCard() {
           <img
             src="/fake/profile.png"
             alt=""
-            className="rounded-full w-16 h-16 object-cover"
+            className="rounded-full w-12 h-12 md:w-16 md:h-16 object-cover"
           />
           <div className="flex-1">
             <h1 className="font-bold text-xl">John Doe</h1>
-            <h2 className="font-medium text-xs">Hacker</h2>
+            <h2 className="text-xs">Hacker</h2>
           </div>
         </div>
       </Link>

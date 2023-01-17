@@ -17,22 +17,25 @@ export default function StarProfileNavigation() {
   )
 
   return (
-    <div className="flex justify-center sm:justify-start pt-10">
-      <Button className={linkStyle(`/stars/${id}`)} href={`/stars/${id}`}>
-        About
-      </Button>
-      <Button
-        className={linkStyle(`/stars/${id}/gallery`)}
-        href={`/stars/${id}/gallery`}
-      >
-        Gallery
-      </Button>
-      <Button
-        className={linkStyle(`/stars/${id}/sponsors`)}
-        href={`/stars/${id}/sponsors`}
-      >
-        Sponsors
-      </Button>
+    <div>
+      <div className="flex justify-center sm:justify-start pt-10">
+        <Button className={linkStyle(`/stars/${id}`)} href={`/stars/${id}`}>
+          About
+        </Button>
+        <Button
+          className={linkStyle(`/stars/${id}/gallery`)}
+          href={`/stars/${id}/gallery`}
+        >
+          Gallery
+        </Button>
+        <Button
+          className={linkStyle(`/stars/${id}/sponsors`)}
+          href={`/stars/${id}/sponsors`}
+        >
+          Sponsors
+        </Button>
+      </div>
+      <hr />
     </div>
   )
 }

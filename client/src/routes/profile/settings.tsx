@@ -65,7 +65,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div>
+        <div className="col-span-4 xl:col-span-1">
           <SuggestedUsers />
         </div>
       </Container>
