@@ -2,6 +2,7 @@ import { Button, Container, Input } from '~/ui'
 import {
   AiFillLock as LockIcon,
   MdOutlineMailOutline as EmailIcon,
+  AiOutlineUser as UserIcon,
 } from '~/core/icons'
 
 export default function Register() {
@@ -15,7 +16,7 @@ export default function Register() {
               <Input
                 type="text"
                 label="Fullname"
-                suffix={<EmailIcon className="text-primary-600" />}
+                suffix={<UserIcon className="text-primary-600" />}
               />
               <Input
                 type="text"

@@ -10,7 +10,7 @@ export function Button({
   disabled,
   children,
   ...rest
-}: Props) {
+}: ButtonProps) {
   if (href) {
     return (
       <Link
@@ -64,7 +64,7 @@ const buttonStyles = cva(
   }
 )
 
-interface Props
+export interface ButtonProps
   extends VariantProps<typeof buttonStyles>,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string

@@ -6,7 +6,6 @@ import {
   useState,
 } from 'react'
 import { Button } from './Button'
-// import { motion } from "framer-motion'
 
 function Trigger({
   children,
