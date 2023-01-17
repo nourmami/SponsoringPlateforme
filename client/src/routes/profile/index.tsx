@@ -21,7 +21,7 @@ export default function Index() {
               />
               <div className="flex-1 py-4 flex flex-col lg:flex-row justify-between">
                 <div className="pl-4">
-                  <div className="flex flex-col space-y-3">
+                  <div className="flex flex-row justify-between lg:justify-start lg:flex-col space-y-3">
                     <div>
                       <h1 className="font-bold text-xl">John Doe</h1>
                       <h2 className="font-medium text-xs">Designer & CEO</h2>
