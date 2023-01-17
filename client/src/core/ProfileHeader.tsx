@@ -20,7 +20,7 @@ export default function ProfileHeader(props: Props) {
           }`}
         />
         <div className="flex-1 py-4 flex flex-col lg:flex-row justify-between space-y-3 sm:space-y-0">
-          <div className="pl-4">
+          <div className="sm:pl-4">
             <div className="flex flex-row justify-between lg:justify-start lg:flex-col space-y-3">
               <div>
                 <h1 className="font-bold text-xl">{props.name}</h1>
