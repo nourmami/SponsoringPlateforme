@@ -16,7 +16,7 @@ export default function ProfileNavigation() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center sm:justify-start pt-10">
+      <div className="flex flex-wrap justify-center sm:justify-start py-4">
         <Button className={linkStyle('/profile')} href="/profile">
           About
         </Button>

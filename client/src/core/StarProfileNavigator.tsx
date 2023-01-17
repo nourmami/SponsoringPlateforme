@@ -18,7 +18,7 @@ export default function StarProfileNavigation() {
 
   return (
     <div>
-      <div className="flex justify-center sm:justify-start pt-10">
+      <div className="flex justify-center sm:justify-start py-4">
         <Button className={linkStyle(`/stars/${id}`)} href={`/stars/${id}`}>
           About
         </Button>
