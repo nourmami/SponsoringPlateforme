@@ -9,8 +9,8 @@ export default function Register() {
     <div>
       <div className="h-[80vh]">
         <Container className="grid grid-cols-1 lg:grid-cols-3 h-full">
-          <div className="grid justify-items-center lg:justify-items-start content-center max-w-xl">
-            <div className="flex flex-col space-y-3 py-4">
+          <div className="grid justify-items-center lg:justify-items-start content-center lg:max-w-xl">
+            <div className="flex flex-col space-y-3 py-4 w-full">
               <h1 className="font-semibold text-xl">Register</h1>
               <Input
                 type="text"

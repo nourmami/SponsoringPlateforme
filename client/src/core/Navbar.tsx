@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <nav className="py-4 border-b bg-background">
       <Container className="flex items-center justify-between">
-        <Button href="/">
+        <Button href="/" className="pl-0">
           <Logo />
         </Button>
         <div className="hidden lg:flex lg:items-center lg:space-x-2">
