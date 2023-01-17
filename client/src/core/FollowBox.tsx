@@ -25,7 +25,7 @@ export default function FollowBox(props: Props) {
     return (
       <Button
         variant="tertiary"
-        className="border-none w-[unset]"
+        className={`border-none w-[unset] ${props.className}`}
         onClick={handleUnfollow}
         loading={loading}
       >
@@ -34,7 +34,12 @@ export default function FollowBox(props: Props) {
     )
 
   return (
-    <Button loading={loading} variant="tertiary" onClick={handleFollow}>
+    <Button
+      loading={loading}
+      variant="tertiary"
+      onClick={handleFollow}
+      className={props.className}
+    >
       Follow
     </Button>
   )
@@ -42,4 +47,5 @@ export default function FollowBox(props: Props) {
 
 interface Props {
   does: boolean
+  className?: string
 }

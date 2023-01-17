@@ -14,12 +14,12 @@ export default function Index() {
             title="Designer & CEO"
             sponsorsCount={54}
             actions={
-              <div className="flex space-x-2 justify-end">
+              <div className="grid grid-cols-2 sm:flex space-x-2 justify-end">
                 <div>
-                  <FollowBox does />
+                  <FollowBox does className="!w-full sm:w-[unset]" />
                 </div>
                 <div>
-                  <SponsorBox does={false} />
+                  <SponsorBox does={false} className="!w-full sm:w-[unset]" />
                 </div>
               </div>
             }

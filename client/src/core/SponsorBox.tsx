@@ -24,7 +24,7 @@ export default function SponsorBox(props: Props) {
   if (sponsors)
     return (
       <Button
-        className="pr-0 w-[unset]"
+        className={`sm:pr-0 w-[unset] ${props.className}`}
         onClick={handleUnsponsor}
         loading={loading}
       >
@@ -33,7 +33,12 @@ export default function SponsorBox(props: Props) {
     )
 
   return (
-    <Button loading={loading} variant="primary" onClick={handleSponsor}>
+    <Button
+      loading={loading}
+      variant="primary"
+      onClick={handleSponsor}
+      className={props.className}
+    >
       Sponsor
     </Button>
   )
@@ -41,4 +46,5 @@ export default function SponsorBox(props: Props) {
 
 interface Props {
   does: boolean
+  className?: string
 }
