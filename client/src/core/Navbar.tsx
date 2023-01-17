@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <nav className="py-4 border-b bg-background">
       <Container className="flex items-center justify-between">
-        <Button href="/" className="pl-0">
+        <Button href="/">
           <Logo />
         </Button>
         <div className="hidden lg:flex lg:items-center lg:space-x-2">
@@ -14,7 +14,7 @@ export default function Navbar() {
           <Button thin>Contact</Button>
           <Button thin>Insights</Button>
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:grid grid-cols-2 gap-1">
           <Button thin href="/login">
             login
           </Button>

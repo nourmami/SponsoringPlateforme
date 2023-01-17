@@ -1,27 +1,42 @@
 import { cva, VariantProps } from 'class-variance-authority'
 import { Link } from 'react-router-dom'
 
-export function Button({ href, variant, thin, className, ...rest }: Props) {
+export function Button({
+  href,
+  variant,
+  thin,
+  className,
+  loading,
+  disabled,
+  children,
+  ...rest
+}: Props) {
   if (href) {
     return (
       <Link
         to={href}
         className={buttonStyles({ variant, thin }) + ' ' + className}
         {...(rest as React.HTMLAttributes<HTMLAnchorElement>)}
-      />
+      >
+        {children}
+      </Link>
     )
   }
 
   return (
     <button
-      className={buttonStyles({ variant, thin }) + ' ' + className}
+      className={buttonStyles({ variant, thin, loading }) + ' ' + className}
       {...rest}
-    />
+      disabled={loading || disabled}
+    >
+      {children}
+      {loading && '...'}
+    </button>
   )
 }
 
 const buttonStyles = cva(
-  'text-center px-6 py-2 rounded-md capitalize duration-300',
+  'box-border text-center px-6 h-10 grid place-content-center rounded-md capitalize duration-300',
   {
     variants: {
       variant: {
@@ -36,17 +51,22 @@ const buttonStyles = cva(
         true: 'font-medium',
         false: 'font-semibold',
       },
+      loading: {
+        true: 'opacity-50 cursor-not-allowed',
+        false: '',
+      },
     },
     defaultVariants: {
       variant: 'normal',
       thin: false,
+      loading: false,
     },
   }
 )
-
 
 interface Props
   extends VariantProps<typeof buttonStyles>,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
+  loading?: boolean
 }
