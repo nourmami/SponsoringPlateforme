@@ -1,0 +1,55 @@
+`Schemas
+
+User {
+	id
+	userName
+	email
+	password
+	salt
+	role
+	
+	followings
+	followers
+	
+	sponsors
+	sponsoring
+	
+	bio
+	title
+	profilePicture
+	coverPicture
+}
+
+Post {
+	image
+	text
+	link
+	date
+}
+
+
+
+/user
+	/login                    +
+	/signup                   +
+	/me                       +
+    /:id GET user by id       + 
+	/all -> Get all users     +
+	/update/:id -> PUT: update user     +
+	
+	
+/posts
+	/  -> POST, create        +    
+	/  -> GET, get my gallery posts   +
+	/user/:id -> GET: GET posts of a user by id   
+	
+/follow
+	/:user -> PUT -> I follow him/her/it/they/xey/etcey
+	/:user -> DELETE -> UNFOLLOW
+	/followers -> GET -> Get users
+	/following -> GET -> Get users
+
+/sponsor
+	/:user -> PUT -> sponsor user 
+	/sponsors -> GET
+	/sponsoring -> GET`

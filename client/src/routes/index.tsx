@@ -20,7 +20,9 @@ export default function Index() {
               </h2>
               <div className="flex items-center space-x-2">
                 <Button variant="primary">Explore Stars</Button>
-                <Button variant="tertiary">Register</Button>
+                <Button variant="tertiary" href="/register">
+                  Register
+                </Button>
               </div>
             </div>
           </div>

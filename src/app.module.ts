@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
-
+import {HelmetMiddleware} from '@nest-middlewares/helmet';
+import { PostModule } from './post/post.module';
+import { User } from './user/entities/user.entity';
+import { Post } from './post/entities/post.entity';
 
 @Module({
   imports: [
@@ -14,12 +17,17 @@ dotenv.config();
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      //entities: ["dist/**/*.entity{.ts,.js}"],
-      autoLoadEntities: true,
+      entities: [User, Post],
+      // autoLoadEntities: true,
       synchronize: true,
-    }),UserModule
+      ssl: process.env.DB_SSL === 'true' ? true : false,
+    }),
+    UserModule,
+    PostModule,
   ],
 })
-  
-
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer.apply(HelmetMiddleware).forRoutes('');
+  }
+}
