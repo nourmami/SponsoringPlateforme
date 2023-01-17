@@ -23,7 +23,12 @@ export default function ProfileHeader(props: Props) {
           <div className="sm:pl-4">
             <div className="flex flex-row justify-between lg:justify-start lg:flex-col space-y-3">
               <div>
-                <h1 className="font-bold text-xl">{props.name}</h1>
+                <h1 className="font-bold flex items-center space-x-2">
+                  <span className="text-2xl">{props.name}</span>
+                  <span className="bg-secondary-400 text-white text-[10px] rounded-md p-1">
+                    SPONSOR
+                  </span>
+                </h1>
                 <h2 className="font-medium text-xs">{props.title}</h2>
               </div>
               <div className="text-secondary-600 flex items-center space-x-1">
