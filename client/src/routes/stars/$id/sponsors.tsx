@@ -7,13 +7,14 @@ import SponsorBox from '~/core/SponsorBox'
 import SuggestedUsers from '~/core/SuggestedUsers'
 import { useGetUser } from '~/core/api/users'
 import { useGetMe } from '~/core/api/users/context'
-import { useGetSponsors } from '~/core/api/sponsor'
+import { useCountSponsors, useGetSponsors } from '~/core/api/sponsor'
 
 export default function Sponsors() {
   const { data, isLoading } = useGetUser()
   const me = useGetMe()
 
-  const sponsors = useGetSponsors()
+  const sponsors = useGetSponsors(me.data.role)
+  const count = useCountSponsors(me.data.role)
 
   if (isLoading || sponsors.isLoading) return null
 
@@ -30,7 +31,7 @@ export default function Sponsors() {
             name={data.fullname}
             title={data.title}
             role={data.role}
-            sponsorsCount={54}
+            sponsorsCount={count.isLoading ? '~' : count.data}
             actions={
               <div className="grid grid-cols-2 sm:flex space-x-2 justify-end">
                 {me.data?.role !== 'sponsor' ? (

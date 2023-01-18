@@ -19,12 +19,15 @@ export const useDoesSponsor = () => {
   return useQuery(['doesponsor', id], api.doesSponsor(id || ''))
 }
 
-export const useGetSponsors = () => {
+export const useGetSponsors = (role: string) => {
   const { id } = useParams()
+  if (role !== 'user')
+    return useQuery(['sponsorings', id], api.getSponsorings(id || ''))
   return useQuery(['sponsors', id], api.getSponsors(id || ''))
 }
 
-export const useGetMySponsors = () => {
+export const useGetMySponsors = (role: string) => {
+  if (role !== 'user') return useQuery('my-sponsorings', api.getMySponsorings)
   return useQuery('my-sponsors', api.getMySponsors)
 }
 
@@ -32,7 +35,9 @@ export const useCountMySponsors = () => {
   return useQuery('count-my-sponsors', api.countMySponsors)
 }
 
-export const useCountSponsors = () => {
+export const useCountSponsors = (role: string) => {
   const { id } = useParams()
+  if (role !== 'user')
+    return useQuery(['count-sponsorings', id], api.countSponsorings(id || ''))
   return useQuery(['count-sponsors', id], api.countSponsors(id || ''))
 }

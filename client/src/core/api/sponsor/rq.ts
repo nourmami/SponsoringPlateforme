@@ -15,6 +15,12 @@ export const getSponsors = (id: string) => async () => {
   return response.data
 }
 
+export const countSponsors = (id: string) => async () => {
+  if (!id) return 0
+  const response = await getApi().get('/sponsor/count/' + id)
+  return response.data
+}
+
 export const getMySponsors = async () => {
   const response = await getApi().get('/sponsor/')
   return response.data
@@ -25,7 +31,17 @@ export const countMySponsors = async () => {
   return response.data
 }
 
-export const countSponsors = (id: string) => async () => {
-  const response = await getApi().get('/sponsor/count/' + id)
+export const getSponsorings = (id: string) => async () => {
+  const response = await getApi().get('/sponsor/sponsoring/star/' + id)
+  return response.data
+}
+
+export const getMySponsorings = async () => {
+  const response = await getApi().get('/sponsor/sponsoring/me')
+  return response.data
+}
+
+export const countSponsorings = (id: string) => async () => {
+  const response = await getApi().get('/sponsor/sponsoring/count/' + id)
   return response.data
 }

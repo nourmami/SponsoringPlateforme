@@ -1,7 +1,8 @@
 import { useCountSponsors } from './api/sponsor'
+import { useGetMe } from './api/users/context'
 
 export default function ProfileHeader(props: Props) {
-  const count = useCountSponsors()
+  const me = useGetMe()
 
   return (
     <div>
@@ -39,7 +40,7 @@ export default function ProfileHeader(props: Props) {
                 <div className="text-secondary-600 flex items-center space-x-1">
                   <img src="/icons/sponsors.svg" alt="sponsors" />
                   <span className="font-medium">
-                    {count.isLoading ? '~' : count.data}
+                    {props.sponsorsCount || 0}
                   </span>
                 </div>
               )}

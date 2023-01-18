@@ -6,9 +6,11 @@ import SuggestedUsers from '~/core/SuggestedUsers'
 import MyProfileHeader from '~/core/MyProfileHeader'
 import Protected from '~/Protected'
 import { useGetMySponsors } from '~/core/api/sponsor'
+import { useGetMe } from '~/core/api/users/context'
 
 function Content() {
-  const sponsors = useGetMySponsors()
+  const me = useGetMe()
+  const sponsors = useGetMySponsors(me.data.role)
 
   if (sponsors.isLoading) {
     return <div>Loading...</div>

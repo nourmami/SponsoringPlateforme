@@ -16,6 +16,7 @@ export default function SponsorBox(props: Props) {
       <Button
         className={`sm:pr-0 w-[unset] ${props.className}`}
         // onClick={handleUnsponsor}
+        // onClick={handleSponsor}
         // loading={loading}
       >
         Sponsoring
