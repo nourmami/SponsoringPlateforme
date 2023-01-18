@@ -1,37 +1,86 @@
-import { Button, Container, Input } from '~/ui'
+import { Button, Checkbox, Container, Input } from '~/ui'
 import {
   AiFillLock as LockIcon,
   MdOutlineMailOutline as EmailIcon,
   AiOutlineUser as UserIcon,
 } from '~/core/icons'
+import { useSignup } from '~/core/api/users'
+import ShowError from '~/core/ShowError'
 
 export default function Register() {
+  const { data, error, isLoading, mutate } = useSignup()
+
+  console.log(data, error, isLoading)
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    const values = Object.fromEntries(data.entries())
+
+    mutate({
+      ...values,
+      role: values.role === 'sponsor' ? 'sponsor' : 'user',
+    })
+  }
+
   return (
     <div>
       <div className="h-[80vh]">
         <Container className="grid grid-cols-1 lg:grid-cols-3 h-full">
           <div className="grid justify-items-center lg:justify-items-start content-center lg:max-w-xl">
-            <div className="flex flex-col space-y-3 py-4 w-full">
+            <form
+              className="flex flex-col space-y-3 py-4 w-full"
+              onSubmit={handleSubmit}
+            >
               <h1 className="font-semibold text-xl">Register</h1>
               <Input
                 type="text"
-                label="Fullname"
+                label="Username"
+                name="userName"
                 suffix={<UserIcon className="text-primary-600" />}
+                required
+              />
+              <Input
+                type="text"
+                label="Fullname"
+                name="fullname"
+                suffix={<UserIcon className="text-primary-600" />}
+                required
               />
               <Input
                 type="text"
                 label="Email"
+                name="email"
                 suffix={<EmailIcon className="text-primary-600" />}
+                required
               />
               <Input
                 type="password"
                 label="Password"
+                name="password"
                 suffix={<LockIcon className="text-primary-600" />}
+                required
               />
+              <Input
+                type="password"
+                label="Repeat Password"
+                name="confirmPassword"
+                suffix={<LockIcon className="text-primary-600" />}
+                required
+              />
+              <Checkbox
+                label="I am a Sponsor"
+                aria-label="Yes, I am a Sponsor"
+                value="sponsor"
+                name="role"
+              />
+              <ShowError error={(error as any)?.response?.data?.message} />
               <div>
-                <Button variant="primary">Register</Button>
+                <Button variant="primary" type="submit" loading={isLoading}>
+                  Register
+                </Button>
               </div>
-            </div>
+            </form>
           </div>
           <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-evenly">
             <span

@@ -1,6 +1,35 @@
 import { cva, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 
+
+export function Checkbox({
+  label,
+  suffix,
+  disabled,
+  className,
+  ...rest
+}: Props) {
+  const id = label.toLowerCase().replace(' ', '-')
+
+  return (
+    <div className="py-2 flex flex-col space-y-2">
+      <label htmlFor={id} className="text-sm font-semibold">
+        {label}
+      </label>
+      <div className={`flex items-center px-3 py-2 duration-300`}>
+        <div className="mr-2">
+          <input
+            type="checkbox"
+            className={inputStyles({ hasSuffix: !!suffix, disabled })}
+            {...rest}
+          />
+        </div>
+        <label>{rest['aria-label']}</label>
+      </div>
+    </div>
+  )
+}
+
 export function Input({ label, suffix, disabled, ...rest }: Props) {
   const id = label.toLowerCase().replace(' ', '-')
   return (
@@ -54,6 +83,7 @@ function InputByType({
         ' ' +
         className
       }
+      type={type}
       {...rest}
     />
   )

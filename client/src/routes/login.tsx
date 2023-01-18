@@ -3,29 +3,54 @@ import {
   AiFillLock as LockIcon,
   MdOutlineMailOutline as EmailIcon,
 } from '~/core/icons'
+import { useLogin } from '~/core/api/users'
+import ShowError from '~/core/ShowError'
 
 export default function Login() {
+  const { error, isLoading, mutate } = useLogin()
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const data = new FormData(e.currentTarget)
+    const values = Object.fromEntries(data.entries())
+
+    mutate({
+      ...values,
+      userName: values.email,
+    })
+  }
+
   return (
     <div>
       <div className="h-[80vh]">
         <Container className="grid grid-cols-1 lg:grid-cols-3 h-full">
           <div className="grid justify-items-center lg:justify-items-start content-center lg:max-w-xl">
-            <div className="flex flex-col space-y-3 py-4 w-full">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col space-y-3 py-4 w-full"
+            >
               <h1 className="font-semibold text-xl">Login</h1>
               <Input
                 type="text"
                 label="Email / Username"
+                name="email"
+                required
                 suffix={<EmailIcon className="text-primary-600" />}
               />
               <Input
                 type="password"
                 label="Password"
+                name="password"
+                required
                 suffix={<LockIcon className="text-primary-600" />}
               />
+              <ShowError error={(error as any)?.response?.data?.message} />
               <div>
-                <Button variant="primary">Login</Button>
+                <Button variant="primary" type="submit" loading={isLoading}>
+                  Login
+                </Button>
               </div>
-            </div>
+            </form>
           </div>
           <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-evenly">
             <span

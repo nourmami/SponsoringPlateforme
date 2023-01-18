@@ -2,25 +2,22 @@ import ProfileHeader from '~/core/ProfileHeader'
 import { Button, Container } from '~/ui'
 import ProfileNavigation from '~/core/ProfileNavigation'
 import SuggestedUsers from '~/core/SuggestedUsers'
+import { useGetMe } from '~/core/api/users/context'
+import MyProfileHeader from '~/core/MyProfileHeader'
+import Protected from '~/Protected'
 
-export default function Index() {
+
+function Content() {
+  const { data } = useGetMe()
+
   return (
     <div className="py-10">
       <Container className="grid grid-cols-4 gap-10">
         <div className="col-span-4 xl:col-span-3">
-          <ProfileHeader
-            profilePicture="/fake/profile.png"
-            name="John Doe"
-            title="Designer & CEO"
-            sponsorsCount={54}
-            actions={null}
-          />
+          <MyProfileHeader />
           <ProfileNavigation />
           <div className="px-2 sm:px-6 py-6">
-            Lorem ipsum dolor sit amet consectetur. Quis nam lacus ac egestas
-            elementum urna. Lorem ipsum dolor sit amet consectetur. Quis nam
-            lacus ac egestas elementum urna. Lorem ipsum dolor sit amet
-            consectetur. Quis nam lacus ac egestas elementum urna.
+            {data.bio ? data.bio : 'No bio'}
           </div>
         </div>
 
@@ -29,5 +26,13 @@ export default function Index() {
         </div>
       </Container>
     </div>
+  )
+}
+
+export default function Index() {
+  return (
+    <Protected>
+      <Content />
+    </Protected>
   )
 }

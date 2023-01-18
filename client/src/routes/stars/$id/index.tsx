@@ -4,34 +4,46 @@ import SponsorBox from '~/core/SponsorBox'
 import { Button, Container } from '~/ui'
 import StarProfileNavigation from '~/core/StarProfileNavigator'
 import SuggestedUsers from '~/core/SuggestedUsers'
+import { useGetUser } from '~/core/api/users'
+import Protected from '~/Protected'
+import { useFollow } from '~/core/api/follow'
+import { useGetMe } from '~/core/api/users/context'
 
-export default function Index() {
+function Content() {
+  const { data, isLoading } = useGetUser()
+  const me = useGetMe()
+
+  if (isLoading) return null
+
+  if (!data) return <div>User not found</div>
+
   return (
     <div className="py-10">
       <Container className="grid grid-cols-4 gap-10">
         <div className="col-span-4 xl:col-span-3">
           <ProfileHeader
-            profilePicture="/fake/profile.png"
-            name="John Doe"
-            title="Designer & CEO"
+            profilePicture={data.profilePicture}
+            name={data.fullname}
+            title={data.title}
+            role={data.role}
             sponsorsCount={54}
             actions={
               <div className="grid grid-cols-2 sm:flex space-x-2 justify-end">
-                <div>
-                  <FollowBox does className="!w-full sm:w-[unset]" />
-                </div>
-                <div>
-                  <SponsorBox does={false} className="!w-full sm:w-[unset]" />
-                </div>
+                {me.data?.role !== 'sponsor' ? (
+                  <div>
+                    <FollowBox className="!w-full sm:w-[unset]" />
+                  </div>
+                ) : (
+                  <div>
+                    <SponsorBox does={false} className="!w-full sm:w-[unset]" />
+                  </div>
+                )}
               </div>
             }
           />
           <StarProfileNavigation />
           <div className="px-2 sm:px-6 py-6">
-            Lorem ipsum dolor sit amet consectetur. Quis nam lacus ac egestas
-            elementum urna. Lorem ipsum dolor sit amet consectetur. Quis nam
-            lacus ac egestas elementum urna. Lorem ipsum dolor sit amet
-            consectetur. Quis nam lacus ac egestas elementum urna.
+            {data.bio ? data.bio : 'No bio'}
           </div>
         </div>
 
@@ -40,5 +52,12 @@ export default function Index() {
         </div>
       </Container>
     </div>
+  )
+}
+export default function Index() {
+  return (
+    <Protected>
+      <Content />
+    </Protected>
   )
 }

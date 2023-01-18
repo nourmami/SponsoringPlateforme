@@ -1,8 +1,10 @@
 import { useCallback } from 'react'
 import { Button } from '~/ui'
+import { useGetMe } from './api/users/context'
 import { useCurrentRoute } from './hooks'
 
 export default function ProfileNavigation() {
+  const me = useGetMe()
   const isCurrentRoute = useCurrentRoute()
 
   const linkStyle = useCallback(
@@ -35,18 +37,21 @@ export default function ProfileNavigation() {
         <Button className={linkStyle('/profile/chat')} href="/chat">
           Chat
         </Button>
+
         <Button
           className={linkStyle('/profile/sponsors')}
           href="/profile/sponsors"
         >
-          Sponsors
+          {me.data?.role === 'sponsor' ? 'Sponsoring' : 'Sponsors'}
         </Button>
-        <Button
-          className={linkStyle('/profile/followers')}
-          href="/profile/followers"
-        >
-          Followers
-        </Button>
+        {me.data?.role !== 'sponsor' ? (
+          <Button
+            className={linkStyle('/profile/followers')}
+            href="/profile/followers"
+          >
+            Followers
+          </Button>
+        ) : null}
       </div>
       <hr />
     </div>

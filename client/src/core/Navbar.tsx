@@ -1,8 +1,12 @@
 import { Button, Container, Drawer } from '~/ui'
 import { CgMenuRight as HamburgerMenu } from '~/core/icons'
 import Logo from './Logo'
+import { useNavigate } from 'react-router-dom'
+import { useGetMe } from './api/users/context'
 
 export default function Navbar() {
+  const me = useGetMe()
+
   return (
     <nav className="py-4 border-b bg-background">
       <Container className="flex items-center justify-between">
@@ -15,12 +19,24 @@ export default function Navbar() {
           <Button thin>Insights</Button>
         </div>
         <div className="hidden lg:grid grid-cols-2 gap-1">
-          <Button thin href="/login">
-            login
-          </Button>
-          <Button variant="primary" href="/register">
-            register
-          </Button>
+          {me.data ? (
+            <Button
+              variant="primary"
+              className="!bg-red-500 hover:!bg-red-700 active:!bg-red-600"
+              onClick={me.logout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button thin href="/login">
+                login
+              </Button>
+              <Button variant="primary" href="/register">
+                register
+              </Button>
+            </>
+          )}
         </div>
         <div className="block lg:hidden">
           <Drawer>

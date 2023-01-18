@@ -25,8 +25,8 @@ export default function ProfileHeader(props: Props) {
               <div>
                 <h1 className="font-bold flex items-center space-x-2">
                   <span className="text-2xl">{props.name}</span>
-                  <span className="bg-secondary-400 text-white text-[10px] rounded-md p-1">
-                    SPONSOR
+                  <span className="bg-secondary-400 text-white text-[10px] rounded-md p-1 uppercase">
+                    {props.role === 'user' ? 'Creator' : 'Sponsor'}
                   </span>
                 </h1>
                 <h2 className="font-medium text-xs">{props.title}</h2>
@@ -47,6 +47,7 @@ export default function ProfileHeader(props: Props) {
 
 interface Props {
   coverPicture?: string
+  role?: 'sponsor' | 'user'
   profilePicture?: string
   name: string
   title: string

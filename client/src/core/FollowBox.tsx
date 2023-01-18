@@ -1,33 +1,30 @@
 import { useState } from 'react'
 import { Button } from '~/ui'
+import { useDoesFollow, useFollow, useUnfollow } from './api/follow'
 
 export default function FollowBox(props: Props) {
-  const [follows, setFollows] = useState(props.does)
-  const [loading, setLoading] = useState(false)
+  const follow = useFollow()
+  const doesFollow = useDoesFollow()
+  const unfollow = useUnfollow()
 
   function handleFollow() {
-    setLoading(true)
-    setTimeout(() => {
-      setFollows(true)
-      setLoading(false)
-    }, 2000)
+    follow.mutate()
   }
 
   function handleUnfollow() {
-    setLoading(true)
-    setTimeout(() => {
-      setFollows(false)
-      setLoading(false)
-    }, 2000)
+    unfollow.mutate()
   }
 
-  if (follows)
+  if (doesFollow.isLoading) return null
+  console.log('doesFollow', doesFollow)
+
+  if (doesFollow.data)
     return (
       <Button
         variant="tertiary"
         className={`border-none w-[unset] ${props.className}`}
         onClick={handleUnfollow}
-        loading={loading}
+        loading={unfollow.isLoading}
       >
         Following
       </Button>
@@ -35,7 +32,7 @@ export default function FollowBox(props: Props) {
 
   return (
     <Button
-      loading={loading}
+      loading={follow.isLoading}
       variant="tertiary"
       onClick={handleFollow}
       className={props.className}
@@ -46,6 +43,6 @@ export default function FollowBox(props: Props) {
 }
 
 interface Props {
-  does: boolean
+  does?: boolean
   className?: string
 }

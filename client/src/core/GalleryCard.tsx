@@ -18,14 +18,12 @@ export default function GalleryCard(props: Props) {
           className="rounded-2xl w-full h-48 object-cover"
         />
         <div
-          className={`backdrop-blur-3xl h-full absolute duration-300 grid place-content-center top-0 ${
+          className={`w-full backdrop-blur-3xl h-full absolute duration-300 grid place-content-center top-0 ${
             showDescription ? 'opacity-100 bg-black/60 ' : 'opacity-0'
           }`}
         >
           <h1 className="text-left p-4 text-white font-medium">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, amet.
-            Ut rerum reprehenderit delectus. Autem blanditiis accusamus est
-            consectetur
+            {props.caption}
           </h1>
         </div>
       </button>
@@ -35,5 +33,5 @@ export default function GalleryCard(props: Props) {
 
 interface Props {
   image: string
-  //   description: string
+  caption: string
 }

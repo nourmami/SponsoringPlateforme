@@ -7,34 +7,56 @@ import Modal from '~/ui/Modal'
 import UploadPostForm from '~/core/UploadPostForm'
 import StarProfileNavigation from '~/core/StarProfileNavigator'
 import SuggestedUsers from '~/core/SuggestedUsers'
+import Protected from '~/Protected'
+import { useGetPostsByUser } from '~/core/api/posts'
+import { useGetUser } from '~/core/api/users'
+import { useGetMe } from '~/core/api/users/context'
 
-export default function Gallery() {
+function Content() {
+  const { data, isLoading } = useGetUser()
+  const posts = useGetPostsByUser()
+  const me = useGetMe()
+
+  if (isLoading || posts.isLoading) return null
+
+  if (!data) return <div>User not found</div>
+
   return (
     <div className="py-10">
       <Container className="grid grid-cols-4 gap-10">
         <div className="col-span-4 xl:col-span-3">
           <ProfileHeader
-            profilePicture="/fake/profile.png"
-            name="John Doe"
-            title="Designer & CEO"
+            profilePicture={data.profilePicture}
+            name={data.fullname}
+            title={data.title}
+            role={data.role}
             sponsorsCount={54}
             actions={
               <div className="grid grid-cols-2 sm:flex space-x-2 justify-end">
-                <div>
-                  <FollowBox does className="!w-full sm:w-[unset]" />
-                </div>
-                <div>
-                  <SponsorBox does={false} className="!w-full sm:w-[unset]" />
-                </div>
+                {me.data?.role !== 'sponsor' ? (
+                  <div>
+                    <FollowBox className="!w-full sm:w-[unset]" />
+                  </div>
+                ) : (
+                  <div>
+                    <SponsorBox does={false} className="!w-full sm:w-[unset]" />
+                  </div>
+                )}
               </div>
             }
           />
           <StarProfileNavigation />
           <div className="px-2 sm:px-6 py-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              <GalleryCard image="/fake/cover.png" />
-              <GalleryCard image="/fake/art1.png" />
-              <GalleryCard image="/fake/art2.png" />
+              {posts.data?.map(
+                (post: { id: string; photo: string; caption: string }) => (
+                  <GalleryCard
+                    caption={post.caption}
+                    image={post.photo}
+                    key={post.id}
+                  />
+                )
+              )}
             </div>
           </div>
         </div>
@@ -43,5 +65,13 @@ export default function Gallery() {
         </div>
       </Container>
     </div>
+  )
+}
+
+export default function Gallery() {
+  return (
+    <Protected>
+      <Content />
+    </Protected>
   )
 }
