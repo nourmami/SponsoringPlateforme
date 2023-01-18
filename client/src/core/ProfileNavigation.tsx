@@ -10,7 +10,7 @@ export default function ProfileNavigation() {
   const linkStyle = useCallback(
     (_route: string) => {
       return `${
-        isCurrentRoute(_route) ? 'text-[#000]' : 'text-[#888]'
+        isCurrentRoute(_route) ? '!text-[#000]' : '!text-[#888]'
       } text-xs sm:text-base`
     },
     [isCurrentRoute]

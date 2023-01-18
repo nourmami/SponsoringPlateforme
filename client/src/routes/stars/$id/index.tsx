@@ -35,7 +35,7 @@ function Content() {
                   </div>
                 ) : (
                   <div>
-                    <SponsorBox does={false} className="!w-full sm:w-[unset]" />
+                    <SponsorBox className="!w-full sm:w-[unset]" />
                   </div>
                 )}
               </div>

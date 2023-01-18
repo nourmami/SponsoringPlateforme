@@ -10,7 +10,6 @@ import { useGetFollowers } from '~/core/api/follow'
 function Content() {
   const followers = useGetFollowers()
 
-  console.log('followers.data', followers.data)
 
   return (
     <div className="py-10">

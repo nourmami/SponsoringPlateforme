@@ -1,32 +1,22 @@
-import { useState } from 'react'
 import { Button } from '~/ui'
+import { useDoesSponsor, useSponsor } from './api/sponsor'
 
 export default function SponsorBox(props: Props) {
-  const [sponsors, setSponsors] = useState(props.does)
-  const [loading, setLoading] = useState(false)
+  const sponsor = useSponsor()
+  const doesSponsor = useDoesSponsor()
 
   function handleSponsor() {
-    setLoading(true)
-    setTimeout(() => {
-      setSponsors(true)
-      setLoading(false)
-    }, 2000)
+    sponsor.mutate()
   }
 
-  function handleUnsponsor() {
-    setLoading(true)
-    setTimeout(() => {
-      setSponsors(false)
-      setLoading(false)
-    }, 2000)
-  }
+  if (doesSponsor.isLoading) return null
 
-  if (sponsors)
+  if (doesSponsor.data === true)
     return (
       <Button
         className={`sm:pr-0 w-[unset] ${props.className}`}
-        onClick={handleUnsponsor}
-        loading={loading}
+        // onClick={handleUnsponsor}
+        // loading={loading}
       >
         Sponsoring
       </Button>
@@ -34,7 +24,7 @@ export default function SponsorBox(props: Props) {
 
   return (
     <Button
-      loading={loading}
+      loading={sponsor.isLoading}
       variant="primary"
       onClick={handleSponsor}
       className={props.className}
@@ -45,6 +35,6 @@ export default function SponsorBox(props: Props) {
 }
 
 interface Props {
-  does: boolean
+  does?: boolean
   className?: string
 }

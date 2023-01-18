@@ -7,14 +7,19 @@ import SponsorBox from '~/core/SponsorBox'
 import SuggestedUsers from '~/core/SuggestedUsers'
 import { useGetUser } from '~/core/api/users'
 import { useGetMe } from '~/core/api/users/context'
+import { useGetSponsors } from '~/core/api/sponsor'
 
 export default function Sponsors() {
   const { data, isLoading } = useGetUser()
   const me = useGetMe()
 
-  if (isLoading) return null
+  const sponsors = useGetSponsors()
+
+  if (isLoading || sponsors.isLoading) return null
 
   if (!data) return <div>User not found</div>
+
+  console.log(sponsors.data)
 
   return (
     <div className="py-10">
@@ -34,7 +39,7 @@ export default function Sponsors() {
                   </div>
                 ) : (
                   <div>
-                    <SponsorBox does={false} className="!w-full sm:w-[unset]" />
+                    <SponsorBox className="!w-full sm:w-[unset]" />
                   </div>
                 )}
               </div>
@@ -43,6 +48,30 @@ export default function Sponsors() {
           <StarProfileNavigation />
           <div className="px-2 sm:px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {sponsors.data?.map(
+                (user: {
+                  id: string
+                  fullname: string
+                  profilePicture?: string
+                  title?: string
+                }) => (
+                  <UserCard
+                    id={user.id}
+                    key={user.id}
+                    fullname={user.fullname}
+                    image={user.profilePicture}
+                    title={user.title}
+                  />
+                )
+              )}
+              {sponsors.data?.length === 0 && (
+                <div className="text-center">
+                  <p className="text-gray-500 text-sm">
+                    He doesn't have any sponsors yet.
+                  </p>
+                </div>
+              )}
+
               {/* <UserCard />
               <UserCard />
               <UserCard />

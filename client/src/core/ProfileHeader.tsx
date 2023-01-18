@@ -1,4 +1,8 @@
+import { useCountSponsors } from './api/sponsor'
+
 export default function ProfileHeader(props: Props) {
+  const count = useCountSponsors()
+
   return (
     <div>
       <img
@@ -31,10 +35,14 @@ export default function ProfileHeader(props: Props) {
                 </h1>
                 <h2 className="font-medium text-xs">{props.title}</h2>
               </div>
-              <div className="text-secondary-600 flex items-center space-x-1">
-                <img src="/icons/sponsors.svg" alt="sponsors" />
-                <span className="font-medium">{props.sponsorsCount || 0}</span>
-              </div>
+              {props.role === 'sponsor' ? null : (
+                <div className="text-secondary-600 flex items-center space-x-1">
+                  <img src="/icons/sponsors.svg" alt="sponsors" />
+                  <span className="font-medium">
+                    {count.isLoading ? '~' : count.data}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 

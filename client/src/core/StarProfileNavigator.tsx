@@ -9,8 +9,9 @@ export default function StarProfileNavigation() {
 
   const linkStyle = useCallback(
     (_route: string) => {
+      console.log(isCurrentRoute(_route), _route)
       return `${
-        isCurrentRoute(_route) ? 'text-[#000]' : 'text-[#888]'
+        isCurrentRoute(_route) ? '!text-[#000]' : '!text-[#888]'
       } text-xs sm:text-base`
     },
     [isCurrentRoute]
