@@ -11,7 +11,9 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Routes />
+      <div className="flex flex-col flex-1">
+        <Routes />
+      </div>
       <Footer />
     </div>
   )
