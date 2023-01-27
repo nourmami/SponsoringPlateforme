@@ -8,9 +8,9 @@ export default function ProfileNavigation() {
   const isCurrentRoute = useCurrentRoute()
 
   const linkStyle = useCallback(
-    (_route: string) => {
+    (_route: string, startsWith = false) => {
       return `${
-        isCurrentRoute(_route) ? '!text-[#000]' : '!text-[#888]'
+        isCurrentRoute(_route, startsWith) ? '!text-[#000]' : '!text-[#888]'
       } text-xs sm:text-base`
     },
     [isCurrentRoute]
@@ -34,7 +34,7 @@ export default function ProfileNavigation() {
         >
           Settings
         </Button>
-        <Button className={linkStyle('/profile/chat')} href="/chat">
+        <Button className={linkStyle('/chat', true)} href="/chat">
           Chat
         </Button>
 

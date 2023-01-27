@@ -14,6 +14,12 @@ export default function Navbar() {
           <Logo />
         </Button>
         <div className="hidden lg:flex lg:items-center lg:space-x-2">
+          {me.data ? (
+            <Button thin href="/feeds">
+              Feeds
+            </Button>
+          ) : null}
+
           <Button thin>About</Button>
           <Button thin>Contact</Button>
           <Button thin>Insights</Button>

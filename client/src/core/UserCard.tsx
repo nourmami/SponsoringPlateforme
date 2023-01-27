@@ -3,7 +3,15 @@ import { Link } from 'react-router-dom'
 export default function UserCard(props: Props) {
   return (
     <div>
-      <Link to={`/stars/${props.id}`}>
+      <Link
+        to={
+          props.hasUrl === false
+            ? ''
+            : !props.url
+            ? `/stars/${props.id}`
+            : props.url(props.id)
+        }
+      >
         <div className="flex items-center space-x-4">
           <img
             src={
@@ -30,4 +38,6 @@ interface Props {
   fullname: string
   title?: string
   id: string
+  hasUrl?: boolean
+  url?: (v: string) => string
 }

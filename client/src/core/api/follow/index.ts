@@ -1,8 +1,5 @@
 import * as api from './rq'
-
 import { useQuery, useMutation } from 'react-query'
-
-import { useModal } from '~/ui/Modal'
 import { useParams } from 'react-router-dom'
 
 export const useFollow = () => {
